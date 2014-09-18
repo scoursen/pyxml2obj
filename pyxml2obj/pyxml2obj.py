@@ -694,7 +694,7 @@ class xml2obj(ContentHandler):
         if type(data) in (str,):
             data = data.decode(sys.getdefaultencoding(), 'replace')
         else:
-            data = str(data)
+            data = unicode(data)
         data = data.replace('&', '&amp;')
         data = data.replace('<', '&lt;')
         data = data.replace('>', '&gt;')
