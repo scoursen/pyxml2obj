@@ -10,6 +10,7 @@
 
 import warnings
 import re
+import sys
 from xml.sax import ContentHandler, parseString
 
 
@@ -688,16 +689,21 @@ class xml2obj(ContentHandler):
 
     def escape_value(self, data):
         """ Escape tags """
-
         if data is None:
             return ''
-
-        data = str(data)
+        if type(data) in (str,):
+            data = data.decode(sys.getdefaultencoding(), 'replace')
+        else:
+            data = str(data)
         data = data.replace('&', '&amp;')
         data = data.replace('<', '&lt;')
         data = data.replace('>', '&gt;')
         data = data.replace('"', '&quot;')
-
+        try:
+            if isinstance(data, unicode):
+                data = data.encode(sys.getdefaultencoding(), 'replace')
+        except Exception as e:
+            import pdb; pdb.set_trace()
         return data
 
     def hash_to_array(self, parent, _dict):

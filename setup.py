@@ -23,7 +23,7 @@ if __name__ == '__main__':
     print "unit tests for XMLout have failed!"
     print "aborted to make a source distribution"
     sys.exit(1)
-    
+
   # build distribution package
   setup(
     packages         = ('pyxml2obj',),

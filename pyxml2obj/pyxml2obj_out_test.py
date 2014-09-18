@@ -46,7 +46,7 @@ class XML2objOutTest(unittest.TestCase):
 '''<root>
   <anon>1</anon>
   <anon>two</anon>
-  <anon>Ⅲ</anon>
+  <anon>???</anon>
 </root>
 '''
     xml = XMLout(tree)
@@ -148,11 +148,11 @@ class XML2objOutTest(unittest.TestCase):
     self.assertTrue(xml != no_header)
     self.assert_(re.match(r'^\s*<root\s+one="1"\s*/>', no_header, re.VERBOSE))
 
-    
+
   def test_escape(self):
     tree = { 'a' : '<A>', 'b' : '"B"', 'c' : '&C&' }
 
-    # check if xml is escaped 
+    # check if xml is escaped
     xml = XMLout(tree)
     self.assert_(re.search('a="&lt;A&gt;"', xml))
     self.assert_(re.search('b="&quot;B&quot;"', xml))
@@ -338,11 +338,11 @@ r'''^<(\w+)>\s*
       />\s*
     </dirs>\s*
   </\1>$
-'''    
+'''
     xml = XMLout(tree, {'grouptags': {'dirs' : 'dir'},
                         'keyattr' : {'dir' : 'name'}, 'contentkey' : '-content'})
     self.assert_(re.match(expected, xml, re.VERBOSE))
-    
+
 
 if __name__ == '__main__':
   unittest.main()
